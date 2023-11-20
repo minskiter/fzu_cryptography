@@ -43,11 +43,11 @@ def select_e(fn):
             return e
         
 def select_d(e, fn):
-    d = 0
-    while True:
-        if (d*e)%fn==1:
-            return d
-        d+=1
+    a,b = e,fn
+    if a<b:
+        a,b = b,a
+    _,_,d = extended_gcd(a,b)
+    return d % fn
         
 def encrypt(m, e, n):
     return quickpower(m, e ,n)
@@ -64,7 +64,9 @@ if __name__=='__main__':
     fn = (p-1) * (q-1)
     e = select_e(fn)
     d = select_d(e, fn)
+    print(f"q:{q}, p:{p}, fn:{(p-1)*(q-1)}")
     print(f"e:{e}, d:{d}, n:{n}")
+    print(f"{e * d % fn}")
     plain = 7456
     c = encrypt(plain, e, n)
     print(f"encrypt: {plain}  -> {c}")
