@@ -32,14 +32,19 @@ def select_pq(l,r):
     for i in range(l,r+1):
         if millerrabin_test(i):
             a.append(i)
+            if len(a)==1:
+                break
+    for i in range(r, l-1,-1):
+        if millerrabin_test(i):
+            a.append(i)
             if len(a)==2:
-                return tuple(a)
-    return None
+                break
+    return tuple(a)
 
 def select_e(fn):
     while True:
         e = random.randint(1, fn-1)
-        if extended_gcd(e, fn)[0]==1:
+        if gcd(e, fn)==1:
             return e
         
 def select_d(e, fn):
@@ -66,7 +71,7 @@ if __name__=='__main__':
     d = select_d(e, fn)
     print(f"q:{q}, p:{p}, fn:{(p-1)*(q-1)}")
     print(f"e:{e}, d:{d}, n:{n}")
-    print(f"{e * d % fn}")
+    print(f"e * d mod fn = {e * d % fn}")
     plain = 7456
     c = encrypt(plain, e, n)
     print(f"encrypt: {plain}  -> {c}")
