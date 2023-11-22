@@ -210,10 +210,10 @@ class HMAC():
 if __name__=='__main__':
     sm3 = SM3()
     m = bytearray("123", encoding="ascii") 
-    
+    print(binascii.hexlify(sm3.digest(m)))
     hmac = HMAC("123",sm3)
     digest = hmac.digest(m)
-    # https://www.lddgo.net/en/encrypt/hmac
+    # 对比实验网站： https://www.lddgo.net/en/encrypt/hmac
     # 正确的值 65f2d88b32114f3c7b22a41585e85035249aefad3ba08d51d0bb95ac2204c814
     print(binascii.hexlify(digest))
     

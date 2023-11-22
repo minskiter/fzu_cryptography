@@ -308,8 +308,24 @@ def hexexpr(state):
 if __name__=="__main__":
     key = 0x000102030405060708090a0b0c0d0e0f
     plaintext = 0x00112233445566778899aabbccddeeff
-    aes = AES(key)
-    blocks = CFB(aes)
-    c = blocks.encrypt([plaintext, key])
-    print(hexexpr(c))
-    print(hexexpr(blocks.decrypt(c)))
+    task = 2
+    if task==1:
+        aes = AES(key,debug=True)
+        c = aes.encrypt(plaintext)
+        aes.decrypt(c)
+    elif task==2:
+        aes = AES(key,debug=False)
+        cbc = CBC(aes)
+        m = [plaintext, key]
+        print(hexexpr(m))
+        c = cbc.encrypt(m)
+        print(hexexpr(c))
+        print(hexexpr(cbc.decrypt(c)))
+    elif task==3:
+        aes = AES(key,debug=False)
+        cfb = CFB(aes)
+        m = [plaintext, key]
+        print(hexexpr(m))
+        c = cfb.encrypt(m)
+        print(hexexpr(c))
+        print(hexexpr(cfb.decrypt(c)))
